@@ -1,5 +1,8 @@
 package ftb.utils.mod.client;
 
+import cpw.mods.fml.common.Loader;
+import ftb.utils.integration.mapwriter.ClaimedChunksDataProvider;
+import mapwriter.api.MwAPI;
 import net.minecraftforge.client.ClientCommandHandler;
 
 import cpw.mods.fml.relauncher.*;
@@ -33,6 +36,10 @@ public class FTBUClient extends FTBUCommon // FTBLibModClient
         FTBUClickAction.init();
 
         EventBusHelper.register(BadgeRenderer.instance);
+
+        if (Loader.isModLoaded("MapWriter")) {
+            MwAPI.registerDataProvider("Claimed chunks", new ClaimedChunksDataProvider());
+        }
     }
 
     public LMWorld getClientWorldLM() {
